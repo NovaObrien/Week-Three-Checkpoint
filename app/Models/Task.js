@@ -12,7 +12,7 @@ export default class Task {
   get taskTemplate() {
     return /*html*/`
     <div class="col-12 border rounded shadow-lg">
-      <h3>${this.title} <button class="text-danger close mt-3 float-right" onclick= "app.taskController.delete('${this.id}')"><span>&times;</span></button></h3>
+      <h3>${this.title} <button type="button" class="text-danger close mt-3 float-right" onclick= "app.taskController.delete('${this.id}')"><span>&times;</span></button></h3>
     </div>
     `
   }

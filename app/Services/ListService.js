@@ -6,12 +6,32 @@ import { saveState } from "../Utils/LocalStorage.js"
 class ListService {
   constructor() {
     console.log("List Service Operating")
+    ProxyState.on("lists", saveState)
     ProxyState.on("tasks", saveState)
   }
   delete(id) {
-    if (window.confirm("Are you sure?")) {
-      ProxyState.lists = ProxyState.lists.filter(l => l.id != id)
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        ProxyState.lists = ProxyState.lists.filter(l => l.id != id)
+
+      }
+    })
+    // {
+    //   ProxyState.lists = ProxyState.lists.filter(l => l.id != id)
+    // }
   }
   create(rawListData) {
     let lists = ProxyState.lists
